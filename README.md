@@ -1,5 +1,22 @@
 # Estaciones Challenge
 
+## Instrucciones para ejecucion
+1. Realizar build con maven:
+
+    mnv clean package
+
+2. Generar imagen docker/podman:
+
+    podman build -t estaciones-challenge .
+
+3. Ejecutar contenedor:
+
+   podman run -p 8080:10101 estaciones-challenge
+
+4. Consulta de endpoints via swagger: 
+
+   http://localhost:8080/swagger-ui/index.html#/
+
 ### Java Code Challenge
 
 Nos gustaría tener un servicio web RESTful que almacene información de caminos y estaciones (en
