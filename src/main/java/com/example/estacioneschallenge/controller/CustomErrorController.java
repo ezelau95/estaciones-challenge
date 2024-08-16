@@ -1,6 +1,7 @@
 package com.example.estacioneschallenge.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,6 +33,15 @@ public class CustomErrorController {
 
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put(exception.getPropertyName(), exception.getMessage());
+
+        return ResponseEntity.badRequest().body(errorMap);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    ResponseEntity handleTypeErrors(HttpMessageNotReadableException exception){
+
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("Error", "Request contains at least one invalid data type");
 
         return ResponseEntity.badRequest().body(errorMap);
     }

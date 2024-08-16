@@ -2,17 +2,21 @@ package com.example.estacioneschallenge.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public class CreatePathRequest {
 
     @NotNull
+    @Positive
     private Double cost;
 
     @NotNull
+    @Positive
     @JsonProperty("source_id")
     private Long sourceId;
 
     @NotNull
+    @Positive
     @JsonProperty("destination_id")
     private Long destinationId;
 
