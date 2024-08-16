@@ -19,8 +19,12 @@ public class StationController {
     @Autowired
     StationService stationService;
 
-    //*********** CODIFICACION DE ERRORES Y VALIDACION DE CAMPOS
-
+    /**
+     * Calculates the shortest path given a station sourceId and a station destinationId.
+     * @param sourceId station source id
+     * @param destinationId station destination id
+     * @return Shortest path and associated Cost
+     */
     @GetMapping("/paths/{sourceId}/{destinationId}")
     public ResponseEntity<GetShortestPathResponse> getShortestPath(@PathVariable long sourceId, @PathVariable long destinationId){
 
@@ -34,21 +38,33 @@ public class StationController {
         return stationService.getShortestPath(sourceId, destinationId);
     }
 
+    /**
+     * Creates or updates path for given ID
+     * @param pathId path_id
+     * @param createPathRequest requested path information
+     * @return Status confirmation
+     */
     @PutMapping("/paths/{pathId}")
-    public ResponseEntity<StatusResponse> createPath(@PathVariable long pathId, @Validated @RequestBody CreatePathRequest createPathRequest){
+    public ResponseEntity<StatusResponse> createOrUpdatePath(@PathVariable long pathId, @Validated @RequestBody CreatePathRequest createPathRequest){
 
         if (pathId <= 0L)
             return new ResponseEntity<>(new StatusResponse("Error", "path_id must be greater than 0"), HttpStatus.BAD_REQUEST);
 
-        return stationService.createPath(pathId, createPathRequest);
+        return stationService.createOrUpdatePath(pathId, createPathRequest);
     }
 
+    /**
+     * Creates or updates station for given ID
+     * @param stationId station_id
+     * @param createStationRequest requested station information
+     * @return Status confirmation
+     */
     @PutMapping("/stations/{stationId}")
-    public ResponseEntity<StatusResponse> createStation(@PathVariable long stationId, @Validated @RequestBody CreateStationRequest createStationRequest){
+    public ResponseEntity<StatusResponse> createOrUpdateStation(@PathVariable long stationId, @Validated @RequestBody CreateStationRequest createStationRequest){
 
         if (stationId <= 0L)
             return new ResponseEntity<>(new StatusResponse("Error", "station_id must be greater than 0"), HttpStatus.BAD_REQUEST);
 
-        return stationService.createStation(stationId, createStationRequest);
+        return stationService.createOrUpdateStation(stationId, createStationRequest);
     }
 }

@@ -33,14 +33,14 @@ class StationControllerTest {
         station1.setName("Moreno");
         CreateStationRequest station2 = new CreateStationRequest();
         station2.setName("Paso del Rey");
-        stationService.createStation(1L, station1);
-        stationService.createStation(2L, station2);
+        stationService.createOrUpdateStation(1L, station1);
+        stationService.createOrUpdateStation(2L, station2);
 
         CreatePathRequest path = new CreatePathRequest();
         path.setCost(50D);
         path.setSourceId(1L);
         path.setDestinationId(2L);
-        stationService.createPath(10L, path);
+        stationService.createOrUpdatePath(10L, path);
     }
 
     @Test
